@@ -1,0 +1,13 @@
+from utils import interpretar_comando
+
+def test_hora():
+    respuesta = interpretar_comando("/hora")
+    assert "La hora actual es" in respuesta
+
+def test_saludo():
+    respuesta = interpretar_comando("/saludo")
+    assert respuesta == "¡Hola! ¿En qué puedo ayudarte?"
+
+def test_eco():
+    respuesta = interpretar_comando("Hola mundo")
+    assert respuesta == "Echo: Hola mundo"

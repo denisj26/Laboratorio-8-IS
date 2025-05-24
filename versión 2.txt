@@ -1,0 +1,53 @@
+import base64
+from urllib.parse import parse_qs, unquote_plus
+from datetime import datetime
+
+def interpretar_comando(texto):
+    """
+    Interpreta comandos enviados por WhatsApp.
+    """
+    comando = texto.strip().lower()
+
+    if comando == "/hora":
+        hora_actual = datetime.now().strftime("%H:%M:%S")
+        return f"La hora actual es {hora_actual}"
+    elif comando == "/saludo":
+        return "¡Hola! ¿En qué puedo ayudarte?"
+    else:
+        return f"Echo: {texto}"
+
+
+def lambda_handler(event, context):
+    print("EVENTO COMPLETO:")
+    print(event)
+
+    try:
+        # Decodificar el cuerpo base64
+        raw_body = base64.b64decode(event["body"]).decode("utf-8")
+        print("BODY DECODIFICADO:")
+        print(raw_body)
+
+        # Parsear parámetros del formulario x-www-form-urlencoded
+        params = parse_qs(raw_body)
+        body = unquote_plus(params.get('Body', [''])[0])
+        from_number = unquote_plus(params.get('From', [''])[0])
+
+        print("MENSAJE RECIBIDO:")
+        print(f"De: {from_number}")
+        print(f"Mensaje: {body}")
+
+        # Interpretar el comando o hacer eco
+        respuesta = interpretar_comando(body)
+
+        return {
+            'statusCode': 200,
+            'body': f"Mensaje recibido de {from_number}: {respuesta}"
+        }
+
+    except Exception as e:
+        print("ERROR:")
+        print(str(e))
+        return {
+            'statusCode': 400,
+            'body': f"Error al procesar evento: {str(e)}"
+        }

@@ -1,0 +1,9 @@
+from datetime import datetime
+
+def interpretar_comando(texto):
+    if texto == "/hora":
+        return f"La hora actual es {datetime.now().strftime('%H:%M:%S')}"
+    elif texto == "/saludo":
+        return "¡Hola! ¿En qué puedo ayudarte?"
+    else:
+        return f"Echo: {texto}"
