@@ -1,0 +1,34 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "v1",
+    "version" : "2025-05-24 07:00:12UTC"
+  },
+  "servers" : [ {
+    "url" : "https://ird16xwusd.execute-api.us-east-1.amazonaws.com/{basePath}",
+    "variables" : {
+      "basePath" : {
+        "default" : ""
+      }
+    }
+  } ],
+  "paths" : {
+    "/FunctionV1" : {
+      "post" : {
+        "responses" : {
+          "default" : {
+            "description" : "Default response for POST /FunctionV1"
+          }
+        },
+        "x-amazon-apigateway-integration" : {
+          "payloadFormatVersion" : "2.0",
+          "type" : "aws_proxy",
+          "httpMethod" : "POST",
+          "uri" : "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:947810120909:function:FunctionV1/invocations",
+          "connectionType" : "INTERNET"
+        }
+      }
+    }
+  },
+  "x-amazon-apigateway-importexport-version" : "1.0"
+}
