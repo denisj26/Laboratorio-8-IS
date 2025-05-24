@@ -8,7 +8,7 @@ def lambda_handler(event, context):
     # Decodificar base64
     raw_body = base64.b64decode(event["body"]).decode("utf-8")
     print("BODY DECODIFICADO:")
-    print(raw_body)  # Ejemplo: 'Body=Hola%20desde%20Postman&From=whatsapp%3A%2B1234567890'
+    print(raw_body) 
 
     # Parsear con parse_qs
     params = parse_qs(raw_body)
